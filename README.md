@@ -1,61 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SynapseCode — Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+SynapseCode is a personal code snippet manager originally implemented as a Flask app and now ported to Laravel. It helps you save, search, and organize code snippets (title, code, language, description, notes, source URL, and tags) in a lightweight, dark-themed web UI.
 
-## About Laravel
+Repository: https://github.com/kishan59/SynapseCode-Laravel-app-main
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Quick demo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+No public demo is published for the Laravel port at the moment. If you want me to deploy this repository (for example to Render, Heroku, or another host) I can prepare a deployment guide or create a deployment for you.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Key features
 
-## Learning Laravel
+- Secure user accounts (register, login, logout).
+- Full CRUD for snippets (add, view in a modal, edit, delete).
+- Organic keyword search across title, description, code, notes, and tags.
+- Optional language filter and paginated listing.
+- Syntax highlighting via Prism.js and copy-to-clipboard support.
+- Responsive UI built with Bootstrap 5 and a consistent dark theme.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Requirements
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.0+ (match your project's composer.json requirement).
+- Composer
+- SQLite (used in this repository by default) or another DB supported by Laravel
+- Node.js & npm (for front-end assets, optional if you only use the prebuilt `public/` assets)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Local setup (development)
 
-## Laravel Sponsors
+1. Clone the repository (if you haven't already):
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```powershell
+git clone https://github.com/kishan59/SynapseCode-Laravel-app-main.git
+cd SynapseCode-Laravel-app-main
+```
 
-### Premium Partners
+2. Install PHP dependencies:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```powershell
+composer install
+```
 
-## Contributing
+3. Copy the example env and generate an app key:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+4. (Optional) If you're using SQLite (recommended for quick local setup):
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```powershell
+# make sure database path exists
+php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+php artisan migrate
+```
 
-## Security Vulnerabilities
+If you prefer MySQL/Postgres, update `.env` database settings and run `php artisan migrate`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Install frontend deps and build assets (optional if using `public/` assets already present):
 
-## License
+```powershell
+npm install
+npm run build
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. Run the app locally:
+
+```powershell
+php artisan serve
+```
+
+Open http://127.0.0.1:8000 and register a new user.
+
+## Project layout (Laravel specific)
+
+- `app/` — Controllers, Models, and Providers (authentication and snippet logic live here).
+- `resources/views/` — Blade templates (index, layout, auth, snippets views like `my_snippets.blade.php`).
+- `public/` — Compiled CSS/JS and static assets (Prism.js, main.js, etc.).
+- `routes/web.php` — Web routes for snippets, auth, and home.
+- `database/` — Migrations and seeders. This repo includes a `database.sqlite` for convenience.
+- `config/` — Laravel configuration files.
+
+## How this port differs from the Flask original
+
+- Uses Laravel's authentication and middleware for route protection.
+- Controllers are implemented as standard Laravel controllers (`app/Http/Controllers`).
+- Blade templates replace Flask/Jinja templates — layout and modal behavior are preserved where possible.
+- The AJAX modal JSON endpoints and delete handlers are implemented to match Laravel routing and CSRF protection.
+
+## Running tests
+
+This project includes a basic PHPUnit test scaffold. Run tests with:
+
+```powershell
+php artisan test
+# or
+vendor/bin/phpunit
+```
+
+## Design choices & rationale
+
+- Laravel was chosen for this port to leverage its powerful routing, Eloquent ORM, and built-in authentication scaffolding.
+- Bootstrap 5 provides responsive layout and quick UI iteration.
+- Prism.js is used for client-side syntax highlighting and copy-to-clipboard convenience.
+- The search is intentionally "organic" — a single input that searches multiple fields with AND logic for natural keyword queries.
+
+## Security notes
+
+- Don't commit `.env` or any secrets to the repository. Use environment variables in production.
+- Ensure `APP_KEY` is set in `.env` and keep your production database credentials secure.
+
+## Acknowledgements
+
+Thanks to the open-source tools used in this project:
+
+- Laravel
+- Bootstrap 5
+- Prism.js
+- Composer and NPM
+
+## Want me to deploy it?
+
+If you want, I can prepare a deployment to Render (or another host) and add CI/CD steps. Tell me the target provider and whether you want a free/public demo or a private deployment.
+
+---
+
+If you'd like any extra sections (contributing guide, issue templates, license, or badges), tell me how you'd like them and I will add them.
