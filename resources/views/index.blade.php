@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="hero-section">
-        <h1 class="mb-3">Welcome to SynapseCode!</h1>
+        <h1 class="mb-3">Welcome to CodeJournal!</h1>
         <p class="lead">Your personal knowledge base for efficient code snippet management.</p>
         <hr class="my-4 w-50 mx-auto border-light opacity-25">
         @guest

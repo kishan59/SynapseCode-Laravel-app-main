@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>SynapseCode - @yield('title')</title>
+    <title>CodeJournal - @yield('title')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/prism.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
     <header class="bg-dark text-white py-3">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark container px-3 rounded">
-            <a class="navbar-brand" href="{{ route('home') }}">SynapseCode</a>
+            <a class="navbar-brand" href="{{ route('home') }}">CodeJournal</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -43,7 +43,7 @@
     </main>
 
     <footer class="text-center py-3 mt-4">
-        <p class="mb-0">&copy; <span id="footer-year"></span> SynapseCode</p>
+        <p class="mb-0">&copy; <span id="footer-year"></span> CodeJournal</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
